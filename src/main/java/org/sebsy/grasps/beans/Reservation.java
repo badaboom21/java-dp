@@ -26,9 +26,11 @@ public class Reservation {
 
     }
 
-    public Reservation(LocalDateTime date) {
+    public Reservation(LocalDateTime date, int nbPlaces, Client client) {
         super();
         this.date = date;
+        this.nbPlaces = nbPlaces;
+        this.client = client;
     }
 
     /**
@@ -83,6 +85,13 @@ public class Reservation {
      */
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public void calculTotal(TypeReservation typeReservation, boolean clientPremium) {
+        total = typeReservation.getMontant() * nbPlaces;
+        if (clientPremium) {
+            total = total * (1 - typeReservation.getReductionPourcent() / 100.0);
+        }
     }
 
     /**

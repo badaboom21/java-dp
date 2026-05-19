@@ -17,7 +17,7 @@ public class ReservationController {
     /**
      * formatter
      */
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * DAO permettant d'accéder à la table des clients
@@ -44,7 +44,7 @@ public class ReservationController {
         int nbPlaces = params.getNbPlaces();
 
         // 2) Conversion de la date de réservation en LocalDateTime
-        LocalDateTime dateReservation = toDate(dateReservationStr);
+        LocalDateTime dateReservation = Util.toDate(dateReservationStr);
 
         // 3) Extraction de la base de données des informations client
         Client client = clientDao.extraireClient(identifiantClient);
@@ -53,33 +53,19 @@ public class ReservationController {
         TypeReservation type = typeReservationDao.extraireTypeReservation(typeReservation);
 
         // 5) Création de la réservation
-        Reservation reservation = new Reservation(dateReservation);
-        reservation.setNbPlaces(nbPlaces);
-        reservation.setClient(client);
+        Reservation reservation = new Reservation(dateReservation, nbPlaces, client);
+//        reservation.setNbPlaces(nbPlaces);
+//        reservation.setClient(client);
 
         // 6) Ajout de la réservation au client
-        client.getReservations().add(reservation);
+//        client.getReservations().add(reservation);
+        client.addReservation(reservation);
 
         // 7) Calcul du montant total de la réservation qui dépend:
         //    - du nombre de places
         //    - de la réduction qui s'applique si le client est premium ou non
-        double total = type.getMontant() * nbPlaces;
-        if (client.isPremium()) {
-            reservation.setTotal(total * (1 - type.getReductionPourcent() / 100.0));
-        } else {
-            reservation.setTotal(total);
-        }
+        reservation.calculTotal(type,client.isPremium());
+
         return reservation;
-    }
-
-    /**
-     * Transforme une date au format String en {@link LocalDateTime}
-     *
-     * @param dateStr date au format String
-     * @return LocalDateTime
-     */
-    private LocalDateTime toDate(String dateStr) {
-
-        return LocalDateTime.parse(dateStr, formatter);
     }
 }
