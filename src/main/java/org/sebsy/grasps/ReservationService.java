@@ -26,8 +26,8 @@ public class ReservationService implements ReservationServiceInterface {
     public ReservationService(TypeReservationRepository typeReservationRepository,
                               ClientRepository clientRepository) {
         super();
-        typeReservationRepository = typeReservationRepository;
-        clientRepository = clientRepository;
+        this.typeReservationRepository = typeReservationRepository;
+        this.clientRepository = clientRepository;
 
     }
 
