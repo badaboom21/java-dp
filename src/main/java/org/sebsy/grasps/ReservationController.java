@@ -17,7 +17,7 @@ public class ReservationController {
     /**
      * Service permettant de créer et accéder aux fontions de Réservation
      */
-    private ReservationService reservationService = new ReservationService(new TypeReservationDao(), new ClientDao());
+    private ReservationService reservationService = new ReservationService();
 
     /**
      * Méthode qui créée une réservation pour un client à partir des informations transmises

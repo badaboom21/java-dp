@@ -87,12 +87,6 @@ public class Reservation {
         this.total = total;
     }
 
-    public void calculTotal(TypeReservation typeReservation, boolean clientPremium) {
-        total = typeReservation.getMontant() * nbPlaces;
-        if (clientPremium) {
-            total = total * (1 - typeReservation.getReductionPourcent() / 100.0);
-        }
-    }
 
     /**
      * Getter
@@ -109,6 +103,10 @@ public class Reservation {
      * @param client the client to set
      */
     public void setClient(Client client) {
+        if(this.client != null){
+            this.client.removeReservation(this);
+        }
         this.client = client;
+        this.client.addReservation(this);
     }
 }

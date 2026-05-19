@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Util {
 
+    private Util(){}
+
     /**
      * Transforme une date au format String en {@link LocalDateTime}
      *

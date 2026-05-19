@@ -16,34 +16,35 @@ public class ReservationService implements ReservationServiceInterface {
     /**
      * DAO permettant d'accéder à la table des clients
      */
-    private ClientRepository clientRepository = new ClientDao();
+    private final ClientRepository clientRepository = new ClientDao();
 
     /**
      * DAO permettant d'accéder à la table des types de réservation
      */
-    private TypeReservationRepository typeReservationRepository = new TypeReservationDao();
+    private final TypeReservationRepository typeReservationRepository = new TypeReservationDao();
 
-    public ReservationService(TypeReservationRepository typeReservationRepository,
-                              ClientRepository clientRepository) {
-        super();
-        this.typeReservationRepository = typeReservationRepository;
-        this.clientRepository = clientRepository;
-
-    }
-
-
+    @Override
     public Reservation creerReservation(String dateReservationStr, int nbPlaces, String identifiantClient) {
         LocalDateTime dateReservation = Util.toDate(dateReservationStr);
         Client client = clientRepository.extraireClient(identifiantClient);
         Reservation reservation = new Reservation(dateReservation, nbPlaces, client);
         client.addReservation(reservation);
+        // TODO création de la réservation dans le DAO
         return reservation;
     }
 
-    public Reservation calculTotal(Reservation reservation,String typeReservation) {
-        TypeReservation type = typeReservationRepository.extraireTypeReservation(typeReservation);
+    @Override
+    public Reservation calculTotal(Reservation reservation,String typeReservationStr) {
+        TypeReservation typeReservation = typeReservationRepository.extraireTypeReservation(typeReservationStr);
         Client client = reservation.getClient();
-        reservation.calculTotal(type,client.isPremium());
+        double nbPlaces = reservation.getNbPlaces();
+        double toalCalculer = typeReservation.getMontant() * nbPlaces;
+
+        if(client.isPremium()){
+            toalCalculer = toalCalculer * (1 - typeReservation.getReductionPourcent() / 100.0);
+        }
+
+        reservation.setTotal(toalCalculer);
         return reservation;
     }
 }
