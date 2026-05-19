@@ -5,7 +5,7 @@ import org.sebsy.grasps.beans.TypeReservation;
 import java.util.List;
 import java.util.Optional;
 
-public class TypeReservationDao {
+public class TypeReservationDao implements TypeReservationRepository {
 
     private static TypeReservation[] types = {new TypeReservation("TH", 150.0, 15.0), new TypeReservation("CI", 10.9, 0.0)};
 
