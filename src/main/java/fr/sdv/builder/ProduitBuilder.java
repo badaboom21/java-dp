@@ -10,6 +10,7 @@ public class ProduitBuilder {
     private Marque marque ;
     private List<Ingredient> ingredientList ;
     private List<Allergene> allergeneList;
+    private Produit produit;
 
     public ProduitBuilder(){
     };
