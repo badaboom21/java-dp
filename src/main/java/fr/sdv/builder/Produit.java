@@ -13,6 +13,21 @@ public class Produit {
     private List<Allergene> allergeneList;
     private List<Additif> additifList;
 
+    public Produit(String nom, String grade) {
+        this.nom = nom;
+        this.grade = grade;
+    }
+
+    public Produit(String nom, String grade, Categorie categorie, Marque marque, List<Ingredient> ingredientList, List<Allergene> allergeneList, List<Additif> additifList) {
+        this.nom = nom;
+        this.grade = grade;
+        this.categorie = categorie;
+        this.marque = marque;
+        this.ingredientList = ingredientList;
+        this.allergeneList = allergeneList;
+        this.additifList = additifList;
+    }
+
     public Marque getMarque() {
         return marque;
     }
@@ -29,7 +44,7 @@ public class Produit {
         this.ingredientList = ingredientList;
     }
 
-    public void setIngredient(Ingredient ingredientList) {
+    public void addIngredient(Ingredient ingredientList) {
         if(this.ingredientList == null){
             this.ingredientList = new ArrayList<Ingredient>();
         }
@@ -44,7 +59,7 @@ public class Produit {
         this.allergeneList = allergeneList;
     }
 
-    public void setAllergene(Allergene allergene) {
+    public void addAllergene(Allergene allergene) {
         if(this.allergeneList == null){
             this.allergeneList = new ArrayList<>();
         }
@@ -59,7 +74,7 @@ public class Produit {
         this.additifList = additifList;
     }
 
-    public void setAdditif(Additif additif) {
+    public void addAdditif(Additif additif) {
         if (this.additifList == null) {
             this.additifList = new ArrayList<>();
         }

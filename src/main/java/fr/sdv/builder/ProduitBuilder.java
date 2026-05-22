@@ -3,14 +3,29 @@ package fr.sdv.builder;
 import java.util.List;
 
 public class ProduitBuilder {
-    private Produit produit;
+
+    private String nom;
+    private String grade;
+    private Categorie categorie ;
+    private Marque marque ;
+    private List<Ingredient> ingredientList ;
+    private List<Allergene> allergeneList;
 
     public ProduitBuilder(){
-        produit = new Produit();
     };
 
-    public Produit getProduit() {
-        return produit;
+    public ProduitBuilder withNom(String nom){
+        this.nom = nom;
+        return this;
+    }
+    public ProduitBuilder withGrade(String grade){
+        this.grade = grade;
+        return this;
+    }
+
+
+    public Produit build(){
+        return new Produit(nom, grade);
     }
 
     public ProduitBuilder appendNom(String nom){
@@ -23,12 +38,14 @@ public class ProduitBuilder {
         return this;
     }
 
-    public ProduitBuilder appendCategorie(Categorie categorie){
+    public ProduitBuilder appendCategorie(String categorieStr){
+        Categorie categorie = new Categorie(categorieStr);
         produit.setCategorie(categorie);
         return this;
     }
 
-    public ProduitBuilder appendMarque(Marque marque){
+    public ProduitBuilder appendMarque(String marqueStr){
+        Marque marque = new Marque(marqueStr);
         produit.setMarque(marque);
         return this;
     }
@@ -39,7 +56,7 @@ public class ProduitBuilder {
     }
 
     public ProduitBuilder appendIngredient(Ingredient ingredient){
-        produit.setIngredient(ingredient);
+        produit.addIngredient(ingredient);
         return this;
     }
 
@@ -49,7 +66,7 @@ public class ProduitBuilder {
     }
 
     public ProduitBuilder appendAllergene(Allergene allergene){
-        produit.setAllergene(allergene);
+        produit.addAllergene(allergene);
         return this;
     }
 
@@ -59,7 +76,7 @@ public class ProduitBuilder {
     }
 
     public ProduitBuilder appendAdditif(Additif additif){
-        produit.setAdditif(additif);
+        produit.addAdditif(additif);
         return this;
     }
 }
