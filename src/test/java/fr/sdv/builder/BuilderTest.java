@@ -23,7 +23,7 @@ class BuilderTest {
                 .appendIngredient(fromage)
                 .appendAdditif(additif)
                 .appendAllergene(lait)
-                .getProduit();
+                .build();
 
         assertNotNull(produit);
 
@@ -53,7 +53,7 @@ class BuilderTest {
                 .appendGrade("B")
                 .appendCategorie("Boisson")
                 .appendMarque("Evian")
-                .getProduit();
+                .build();
 
         assertNotNull(produit);
 
@@ -75,7 +75,7 @@ class BuilderTest {
                 .appendMarque("Coca-Cola")
                 .appendIngredient(eau)
                 .appendIngredient(sucre)
-                .getProduit();
+                .build();
 
         assertNotNull(produit);
 
@@ -100,7 +100,7 @@ class BuilderTest {
                 .appendCategorie("Boisson")
                 .appendMarque("Tropicana")
                 .appendAdditif(additif)
-                .getProduit();
+                .build();
 
         assertNotNull(produit);
 
@@ -120,7 +120,7 @@ class BuilderTest {
                 .appendCategorie("Boulangerie")
                 .appendMarque("Banette")
                 .appendAllergene(gluten)
-                .getProduit();
+                .build();
 
         assertNotNull(produit);
 
